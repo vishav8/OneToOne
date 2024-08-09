@@ -43,7 +43,6 @@ public class AccountServiceImpl implements AccountService {
         savedAccountDto.getEmployeeDto().setEmployeeName(savedAccount.getEmployee().getEmployeeName());
         savedAccountDto.getEmployeeDto().setEmployeeSal(savedAccount.getEmployee().getEmployeeSal());
         savedAccountDto.getEmployeeDto().setEmployeeAddr(savedAccount.getEmployee().getEmployeeAddr());
-        savedAccountDto.getEmployeeDto().setAccountDto(savedAccountDto);
         return savedAccountDto;
     }
 
