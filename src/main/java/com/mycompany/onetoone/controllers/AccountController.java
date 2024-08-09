@@ -20,9 +20,9 @@ public class AccountController {
         return new ResponseEntity<>(createdAccountDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{accountId}")
-    public ResponseEntity<AccountDto> getEmployee(@PathVariable("accountId") int accountId) {
-        AccountDto accountDto = accountService.getAccount(accountId);
+    @GetMapping("/{accNo}")
+    public ResponseEntity<AccountDto> getEmployee(@PathVariable("accNo") String accNo) {
+        AccountDto accountDto = accountService.getAccount(accNo);
         return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 }

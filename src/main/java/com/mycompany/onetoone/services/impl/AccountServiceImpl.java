@@ -21,16 +21,45 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
-        Account account = modelMapper.map(accountDto, Account.class);
+        Account account = new Account();
+        account.setAccNo(accountDto.getAccNo());
+        account.setAccType(accountDto.getAccType());
+        account.setAccHolderName(accountDto.getAccHolderName());
+        account.setAccBalance(accountDto.getAccBalance());
+        account.setEmployee(new Employee());
+        account.getEmployee().setEmployeeNo(accountDto.getEmployeeDto().getEmployeeNo());
+        account.getEmployee().setEmployeeName(accountDto.getEmployeeDto().getEmployeeName());
+        account.getEmployee().setEmployeeSal(accountDto.getEmployeeDto().getEmployeeSal());
+        account.getEmployee().setEmployeeAddr(accountDto.getEmployeeDto().getEmployeeAddr());
+        account.getEmployee().setAccount(account);
         Account savedAccount = accountRepository.save(account);
-        AccountDto savedAccountDto = modelMapper.map(savedAccount, AccountDto.class);
+        AccountDto savedAccountDto = new AccountDto();
+        savedAccountDto.setAccNo(savedAccount.getAccNo());
+        savedAccountDto.setAccType(savedAccount.getAccType());
+        savedAccountDto.setAccHolderName(savedAccount.getAccHolderName());
+        savedAccountDto.setAccBalance(savedAccount.getAccBalance());
+        savedAccountDto.setEmployeeDto(new EmployeeDto());
+        savedAccountDto.getEmployeeDto().setEmployeeNo(savedAccount.getEmployee().getEmployeeNo());
+        savedAccountDto.getEmployeeDto().setEmployeeName(savedAccount.getEmployee().getEmployeeName());
+        savedAccountDto.getEmployeeDto().setEmployeeSal(savedAccount.getEmployee().getEmployeeSal());
+        savedAccountDto.getEmployeeDto().setEmployeeAddr(savedAccount.getEmployee().getEmployeeAddr());
+        savedAccountDto.getEmployeeDto().setAccountDto(savedAccountDto);
         return savedAccountDto;
     }
 
     @Override
-    public AccountDto getAccount(int accountId) {
-        Account account = accountRepository.findById(accountId).orElseThrow(() -> new RuntimeException("Account not found with given id"));
-        AccountDto savedAccountDto = modelMapper.map(account, AccountDto.class);
+    public AccountDto getAccount(String accNo) {
+        Account account = accountRepository.findById(accNo).orElseThrow(() -> new RuntimeException("Account not found with given id"));
+        AccountDto savedAccountDto = new AccountDto();
+        savedAccountDto.setAccNo(account.getAccNo());
+        savedAccountDto.setAccType(account.getAccType());
+        savedAccountDto.setAccHolderName(account.getAccHolderName());
+        savedAccountDto.setAccBalance(account.getAccBalance());
+        savedAccountDto.setEmployeeDto(new EmployeeDto());
+        savedAccountDto.getEmployeeDto().setEmployeeNo(account.getEmployee().getEmployeeNo());
+        savedAccountDto.getEmployeeDto().setEmployeeName(account.getEmployee().getEmployeeName());
+        savedAccountDto.getEmployeeDto().setEmployeeSal(account.getEmployee().getEmployeeSal());
+        savedAccountDto.getEmployeeDto().setEmployeeAddr(account.getEmployee().getEmployeeAddr());
         return savedAccountDto;
     }
 }

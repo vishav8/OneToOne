@@ -14,4 +14,5 @@ public class AccountDto {
     private String accHolderName;
     private String accType;
     private long accBalance;
+    private EmployeeDto employeeDto;
 }
