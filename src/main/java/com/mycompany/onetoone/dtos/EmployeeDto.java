@@ -1,5 +1,6 @@
 package com.mycompany.onetoone.dtos;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 @Getter
@@ -14,5 +15,6 @@ public class EmployeeDto {
     private String employeeName;
     private float employeeSal;
     private String employeeAddr;
+    @JsonManagedReference
     private AccountDto accountDto;
 }
